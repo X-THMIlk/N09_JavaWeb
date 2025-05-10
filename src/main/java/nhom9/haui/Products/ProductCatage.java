@@ -1,59 +1,66 @@
+// ProductCatage.java (Servlet)
 package nhom9.haui.Products;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import nhom9.haui.Model.Product;
 import nhom9.haui.Model.Promotions;
 import nhom9.haui.jdbc.ConnectJDBC;
 
-/**
- * Servlet implementation class ProductCatage
- */
 @WebServlet("/Products/ProductCatage")
 public class ProductCatage extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final int ITEMS_PER_PAGE = 5; // Number of products per page for pagination
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> productList = new ArrayList<>();
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        // Lấy tham số page từ request, nếu không có sẽ mặc định là 1
-        int page = 1;
-        int recordsPerPage = 12; // Số sản phẩm trên mỗi trang
+        int currentPage = 1; // Default page is 1
+        String pageParam = request.getParameter("page"); // Read page parameter from URL
 
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
+        if (pageParam != null) {
+            try {
+                currentPage = Integer.parseInt(pageParam); // Parse the page number if valid
+            } catch (NumberFormatException e) {
+                currentPage = 1; // Fall back to first page if parsing fails
+            }
         }
 
-        // Tính toán offset
-        int offset = (page - 1) * recordsPerPage;
+        int offset = (currentPage - 1) * ITEMS_PER_PAGE; // Calculate database offset for LIMIT clause
 
-        try (Connection cnn = new ConnectJDBC().getConnection();
-             PreparedStatement pst = cnn.prepareStatement(
-                     "SELECT p.*, pr.* FROM Products p " +
-                             "LEFT JOIN Promotions pr ON p.promotion_id = pr.id " +
-                             "LIMIT ? OFFSET ?")) {
+        ArrayList<Product> productList = new ArrayList<>();
+        int totalItems = 0; // Will hold the total number of products
 
-            // Thêm LIMIT và OFFSET vào câu truy vấn SQL
-            pst.setInt(1, recordsPerPage);
-            pst.setInt(2, offset);
+        try (Connection conn = new ConnectJDBC().getConnection()) {
+            // Count total products to calculate pagination
+            String countSql = "SELECT COUNT(*) FROM Products";
+            try (Statement countStmt = conn.createStatement();
+                 ResultSet rs = countStmt.executeQuery(countSql)) {
+                if (rs.next()) {
+                    totalItems = rs.getInt(1); // Read the count result
+                }
+            }
 
-            ResultSet rs = pst.executeQuery();
+            // Calculate total pages based on totalItems and items per page
+            int totalPages = (int) Math.ceil((double) totalItems / ITEMS_PER_PAGE);
 
-            // Lấy danh sách sản phẩm từ CSDL
-            while (rs.next()) {
-                Product p = new Product(
+            // Get paginated list of products using LIMIT and OFFSET
+            String sql = "SELECT * FROM Products ORDER BY id DESC LIMIT ? OFFSET ?";
+            try (PreparedStatement pst = conn.prepareStatement(sql)) {
+                pst.setInt(1, ITEMS_PER_PAGE); // Number of products to fetch
+                pst.setInt(2, offset);         // Offset to start fetching from
+
+                ResultSet rs = pst.executeQuery();
+
+                // Iterate through the result and build product list
+                while (rs.next()) {
+                    Product product = new Product(
                         rs.getInt("id"),
                         rs.getInt("category_id"),
                         rs.getObject("promotion_id") != null ? rs.getInt("promotion_id") : null,
@@ -64,46 +71,25 @@ public class ProductCatage extends HttpServlet {
                         rs.getString("thumbnail"),
                         rs.getString("description"),
                         rs.getString("created_at")
-                );
-
-                // Lấy thông tin khuyến mãi nếu có
-                if (rs.getObject("promotion_id") != null) {
-                    Promotions promotion = new Promotions(
-                            rs.getInt("promotion_id"),
-                            rs.getString("pr.name"),
-                            rs.getString("pr.description"),
-                            rs.getDouble("pr.discount_percent"),
-                            rs.getDate("pr.start_date"),
-                            rs.getDate("pr.end_date")
                     );
-                    p.setPromotion(promotion); // Set promotion vào product
+                    // Optional: Load promotion details if needed later
+                    productList.add(product);
                 }
-
-                productList.add(p);
             }
 
-            // Lấy tổng số sản phẩm để tính tổng số trang
-            PreparedStatement countStmt = cnn.prepareStatement("SELECT COUNT(*) FROM Products");
-            ResultSet countRs = countStmt.executeQuery();
-            int totalRecords = 0;
-            if (countRs.next()) {
-                totalRecords = countRs.getInt(1);
-            }
-
-            // Tính toán tổng số trang
-            int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
-
-            // Lưu danh sách sản phẩm và thông tin phân trang vào request
+            // Set attributes for JSP to use for rendering
             request.setAttribute("productList", productList);
-            request.setAttribute("currentPage", page);
+            request.setAttribute("currentPage", currentPage);
             request.setAttribute("totalPages", totalPages);
 
-            // Chuyển hướng đến trang ProductCatage.jsp
-            request.getRequestDispatcher("/Products/ProductCatage.jsp").forward(request, response);
+            // Forward the request to JSP for view rendering
+            RequestDispatcher rd = request.getRequestDispatcher("/Products/ProductCatage.jsp");
+            rd.forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            response.getWriter().println("Lỗi khi truy vấn CSDL!");
+            // Show error message if something goes wrong with DB access
+            response.getWriter().println("Lỗi khi truy xuất sản phẩm!");
         }
     }
 }

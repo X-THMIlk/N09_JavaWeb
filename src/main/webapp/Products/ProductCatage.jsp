@@ -31,82 +31,88 @@
                     <button type="submit">Search</button>
                 </form>
             </li>
-            <li><a href="${pageContext.request.contextPath}/ProductCartList"><img alt="" src="${pageContext.request.contextPath}/image/iconCart.jpg"></a>
+            <li><a href="${pageContext.request.contextPath}/ProductCartList"><img alt="" src="${pageContext.request.contextPath}/image/iconCart.jpg"></a></li>
             <li class="bnt_logout"><a href="../index.jsp">Log Out</a></li>
         </ul>
     </nav>
-<h1>Danh sách sản phẩm</h1>
 
-<table border="1" cellpadding="8" cellspacing="0" style="width: 100%; margin-top: 10px;">
-    <tr>
-        <th>ID</th>
-        <th>Danh mục</th>
-        <th>Mã khuyến mãi</th>
-        <th>Tên</th>
-        <th>Mã sản phẩm</th>
-        <th>Giá</th>
-        <th>Số lượng</th>
-        <th>Ảnh</th>
-        <th>Mô tả</th>
-        <th>Ngày tạo</th>
-        <th>Khuyến mãi (%)</th>
-        <th>Thao tác</th>
-    </tr>
+    <h1>Danh sách sản phẩm</h1>
 
-    <% 
-        List<Product> productList = (List<Product>) request.getAttribute("productList");
-        if (productList != null && !productList.isEmpty()) {
-            for (Product product : productList) {
-    %>
-    <tr>
-        <td><%= product.getId() %></td>
-        <td><%= product.getCategoryId() %></td>
-        <td><%= (product.getPromotion() != null) ? product.getPromotion().getId() : "NULL" %></td>
-        <td><%= product.getName() %></td>
-        <td><%= product.getCode() %></td>
-        <td><%= String.format("%,d", product.getPrice()) %> VND</td>
-        <td><%= product.getQuantity() %></td>
-        <td style="text-align: center;">
-            <img src="${pageContext.request.contextPath}/image/<%= product.getThumbnail() %>" width="80px" />
-        </td>
-        <td><%= product.getDescription() %></td>
-        <td><%= product.getCreatedAt() %></td>
-        <td>
-            <%= (product.getPromotion() != null) ? ("-" + product.getPromotion().getDiscountPercent() + "%") : "Không có" %>
-        </td>
-        <td><a href="ProductEdit.jsp?id=<%= product.getId() %>">Thêm</a> |
-            <a href="ProductEdit.jsp?id=<%= product.getId() %>">Sửa</a> |
-            <a href="${pageContext.request.contextPath}/Products/ProductsDelete?id=<%= product.getId() %>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">Xóa</a>
-        </td>
-    </tr>
-    <% 
-            }
-        } else {
-    %>
-    <tr><td colspan="12">Không có sản phẩm để hiển thị.</td></tr>
-    <% 
-        }
-    %>
-</table>
+    <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; margin-top: 10px;">
+        <tr>
+            <th>ID</th>
+            <th>Danh mục</th>
+            <th>Mã khuyến mãi</th>
+            <th>Tên</th>
+            <th>Mã sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Ảnh</th>
+            <th>Mô tả</th>
+            <th>Ngày tạo</th>
+            <th>Khuyến mãi (%)</th>
+            <th>Thao tác</th>
+        </tr>
 
-<div style="margin-top: 20px; text-align: center;">
-    <%
-        int currentPage = (Integer) request.getAttribute("currentPage");
-        int totalPages = (Integer) request.getAttribute("totalPages");
-        for (int i = 1; i <= totalPages; i++) {
-            if (i == currentPage) {
-    %>
-                <strong><%= i %></strong>
-    <% 
+        <%
+            List<Product> productList = (List<Product>) request.getAttribute("productList");
+            if (productList != null && !productList.isEmpty()) {
+                for (Product product : productList) {
+        %>
+        <tr>
+            <td><%= product.getId() %></td>
+            <td><%= product.getCategoryId() %></td>
+            <td><%= (product.getPromotion() != null) ? product.getPromotion().getId() : "NULL" %></td>
+            <td><%= product.getName() %></td>
+            <td><%= product.getCode() %></td>
+            <td><%= String.format("%,d", product.getPrice()) %> VND</td>
+            <td><%= product.getQuantity() %></td>
+            <td style="text-align: center;">
+                <img src="${pageContext.request.contextPath}/image/<%= product.getThumbnail() %>" width="80px" />
+            </td>
+            <td><%= product.getDescription() %></td>
+            <td><%= product.getCreatedAt() %></td>
+            <td>
+                <%= (product.getPromotion() != null) ? ("-" + product.getPromotion().getDiscountPercent() + "%") : "Không có" %>
+            </td>
+            <td>
+                <a href="${pageContext.request.contextPath}/Products/ProductAddForm.jsp" onclick="return confirm('Bạn muốn thêm sản phẩm mới?');">Thêm</a>
+                <a href="${pageContext.request.contextPath}/Products/ProductEditForm?id=<%= product.getId() %>" onclick="return confirm('Bạn sửa sản phẩm này?');">Sửa</a>
+                <a href="${pageContext.request.contextPath}/Products/ProductsDelete?id=<%= product.getId() %>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">Xóa</a>
+            </td>
+        </tr>
+        <%
+                }
             } else {
-    %>
-                <a href="${pageContext.request.contextPath}/Products/ProductCatage?page=<%= i %>"><%= i %></a>
-    <% 
+        %>
+        <tr><td colspan="12">Không có sản phẩm để hiển thị.</td></tr>
+        <%
             }
-            if (i < totalPages) out.print(" | ");
-        }
-    %>
-</div>
+        %>
+    </table>
+
+    <div style="margin-top: 20px; text-align: center;">
+        <%
+            Integer currentPageAttr = (Integer) request.getAttribute("currentPage");
+            Integer totalPagesAttr = (Integer) request.getAttribute("totalPages");
+
+            int currentPage = (currentPageAttr != null) ? currentPageAttr : 1;
+            int totalPages = (totalPagesAttr != null) ? totalPagesAttr : 1;
+
+            for (int i = 1; i <= totalPages; i++) {
+                if (i == currentPage) {
+        %>
+                    <strong><%= i %></strong>
+        <%
+                } else {
+        %>
+                    <a href="${pageContext.request.contextPath}/Products/ProductCatage?page=<%= i %>"><%= i %></a>
+        <%
+                }
+                if (i < totalPages) out.print(" | ");
+            }
+        %>
+    </div>
 
 </body>
 </html>
