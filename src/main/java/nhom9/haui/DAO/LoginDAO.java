@@ -8,8 +8,9 @@ import java.sql.SQLException;
 import nhom9.haui.Model.Admin;
 import nhom9.haui.Model.Users;
 
-public class LoginDAO {
+public class LoginDAO implements ILoginDAO {
 
+    @Override
     public Users loginUser(String email, String password) {
         try (Connection cnn = new ConnectJDBC().getConnection()) {
             String sql = "SELECT * FROM Users WHERE email = ? AND password = ?";
@@ -35,6 +36,7 @@ public class LoginDAO {
         return null;
     }
 
+    @Override
     public Admin loginAdmin(String email, String password) {
         try (Connection cnn = new ConnectJDBC().getConnection()) {
             String sql = "SELECT * FROM Admins WHERE email = ? AND password = ?";

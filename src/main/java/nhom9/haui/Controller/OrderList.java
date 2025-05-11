@@ -1,5 +1,5 @@
 package nhom9.haui.Controller;
-
+import nhom9.haui.DAO.IOrderDAO;
 import nhom9.haui.DAO.OrderDAO;
 import nhom9.haui.Model.Order;
 
@@ -22,7 +22,7 @@ public class OrderList extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy danh sách đơn hàng từ DAO
-        OrderDAO orderDAO = new OrderDAO();
+    	IOrderDAO orderDAO = new OrderDAO();
         List<Order> orderList = orderDAO.getAllOrders();
         System.out.println("Số lượng đơn hàng: " + orderList.size());
         

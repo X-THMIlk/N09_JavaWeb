@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import nhom9.haui.DAO.IProductDAO;
 import nhom9.haui.DAO.ProductDAO;
 import nhom9.haui.Model.Product;
 
@@ -28,7 +28,7 @@ public class ProductsList extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        ProductDAO productDAO = new ProductDAO();
+        IProductDAO productDAO = new ProductDAO();
         List<Product> productList = productDAO.getAllProducts();
 
         // Lưu danh sách sản phẩm vào session

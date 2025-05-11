@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAO {
+public class OrderDAO implements IOrderDAO{
 
     public void createOrderPerItem(String customerName, String email, String phone,
                                    String address, List<Cart> cartList, String[] selectedIds,

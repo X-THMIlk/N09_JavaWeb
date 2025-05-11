@@ -1,5 +1,5 @@
 package nhom9.haui.Controller;
-
+import nhom9.haui.DAO.IProductDAO;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ public class ProductsDelete extends HttpServlet {
         String uid = request.getParameter("id");
         int productId = Integer.parseInt(uid);
         
-        ProductDAO productDAO = new ProductDAO();
+        IProductDAO productDAO = new ProductDAO();
         boolean success = productDAO.deleteProductById(productId);
 
         if (success) {

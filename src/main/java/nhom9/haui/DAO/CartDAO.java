@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import nhom9.haui.DAO.ConnectJDBC;
 import nhom9.haui.Model.Cart;
 
-public class CartDAO {
+public class CartDAO implements ICartDAO{
 
     public boolean addProductToCart(int productId, String productName, int quantity, int price, String image, String username) {
         String sql = "INSERT INTO Cart (product_id, product_name, quantity, price, image, username) VALUES (?, ?, ?, ?, ?, ?)";

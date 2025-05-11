@@ -1,5 +1,5 @@
 package nhom9.haui.Controller;
-
+import nhom9.haui.DAO.IProductDAO;
 import nhom9.haui.DAO.ProductDAO;
 import nhom9.haui.Model.Product;
 
@@ -30,7 +30,7 @@ public class ProductAdd extends HttpServlet {
         // Tạo đối tượng Product
         Product product = new Product(0, categoryId, idPromotion, name, code, price, quantity, thumbnail, description, null);
 
-        ProductDAO productDAO = new ProductDAO();
+        IProductDAO productDAO = new ProductDAO();
         boolean isAdded = productDAO.addProduct(product);
 
         if (isAdded) {

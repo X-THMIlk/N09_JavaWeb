@@ -11,7 +11,7 @@ import java.util.List;
 
 import nhom9.haui.Model.Comments;
 
-public class CommentDAO {
+public class CommentDAO implements ICommentDAO{
 
     public boolean addComment(String email, String content, String productId, int userId) {
         boolean isSuccess = false;

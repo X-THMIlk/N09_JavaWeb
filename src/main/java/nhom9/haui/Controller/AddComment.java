@@ -1,5 +1,5 @@
 package nhom9.haui.Controller;
-
+import nhom9.haui.DAO.ICommentDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +38,7 @@ public class AddComment extends HttpServlet {
         }
 
         // Tạo đối tượng CommentDAO để thêm bình luận
-        CommentDAO commentDAO = new CommentDAO();
+        ICommentDAO commentDAO = new CommentDAO();
         boolean isAdded = commentDAO.addComment(email, content, product_id, id);
 
         if (isAdded) {

@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
+import nhom9.haui.DAO.ILoginDAO;
 import nhom9.haui.DAO.LoginDAO;
 import nhom9.haui.Model.Admin;
 import nhom9.haui.Model.Users;
@@ -23,7 +23,7 @@ public class ProductLogin extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        LoginDAO authDAO = new LoginDAO();
+        ILoginDAO authDAO = new LoginDAO();
 
         Users user = authDAO.loginUser(username, password);
         if (user != null) {

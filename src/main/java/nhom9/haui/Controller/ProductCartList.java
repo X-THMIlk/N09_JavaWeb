@@ -1,5 +1,5 @@
 package nhom9.haui.Controller;
-
+import nhom9.haui.DAO.ICartDAO;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class ProductCartList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = "quangvu0407"; 
 
-        CartDAO cartDAO = new CartDAO();
+        ICartDAO cartDAO = new CartDAO();
         List<Cart> cartList = cartDAO.getCartList(username);  
 
         request.getSession().setAttribute("cartList", cartList);

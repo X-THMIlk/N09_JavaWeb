@@ -1,5 +1,5 @@
 package nhom9.haui.Controller;
-
+import nhom9.haui.DAO.IProductDAO;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ProductDetail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
 
-        ProductDAO productDAO = new ProductDAO();
+        IProductDAO productDAO = new ProductDAO();
         Product product = productDAO.getProductById(Integer.parseInt(id));  // Lấy sản phẩm từ DAO
 
         CommentDAO commentDAO = new CommentDAO();

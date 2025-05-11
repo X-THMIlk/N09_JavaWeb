@@ -47,24 +47,43 @@
 			</li>
 		</ul>
 	</nav>
-
 	<div class="content">
 		<%
-		// Lấy danh sách sản phẩm từ request
 		List<Product> productList = (List<Product>) session.getAttribute("productList");
+		String categoryParam = request.getParameter("category");
+		int selectedCategory = (categoryParam != null) ? Integer.parseInt(categoryParam) : 1;
+
+		String shoeCategoryParam = request.getParameter("shoeCategory");
+		int selectedShoeCategory = (shoeCategoryParam != null) ? Integer.parseInt(shoeCategoryParam) : 5;
 
 		if (productList != null) {
 			for (Product product : productList) {
+				if (product.getCategoryId() == selectedCategory) {
 		%>
 		<div class="item">
-			<a href="#"><img
-				src="${pageContext.request.contextPath}/image/<%= product.getThumbnail() %>"
-				alt=""></a> <a href="#"><%=product.getName()%></a>
-			<p><%=product.getPrice()%>
+			<div class="image-container">
+				<a href="${pageContext.request.contextPath}/Products/ProductDetail?id=<%=product.getId()%>"> <img
+					src="${pageContext.request.contextPath}/image/<%= product.getThumbnail() %>"
+					alt="">
+				</a>
+				<%
+				if (product.getPromotion() != null && product.getPromotion().getDiscountPercent() > 0) {
+				%>
+				<div class="discount-badge">
+					-<%=product.getPromotion().getDiscountPercent()%>%
+				</div>
+				<%
+				}
+				%>
+			</div>
+			<a href="${pageContext.request.contextPath}/Products/ProductDetail?id=<%=product.getId()%>"><%=product.getName()%></a> 
+			<p><%=String.format("%,d", product.getPrice())%>
 				VND
 			</p>
 		</div>
+
 		<%
+		}
 		}
 		} else {
 		%>

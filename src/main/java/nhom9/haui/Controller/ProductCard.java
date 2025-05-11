@@ -1,5 +1,5 @@
 package nhom9.haui.Controller;
-
+import nhom9.haui.DAO.ICartDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -29,7 +29,7 @@ public class ProductCard extends HttpServlet {
         String username = "quangvu0407";  // Lấy username từ session hoặc yêu cầu đăng nhập.
 
         // Khởi tạo CartDAO để thêm sản phẩm vào giỏ hàng
-        CartDAO cartDAO = new CartDAO();
+        ICartDAO cartDAO = new CartDAO();
         boolean isAdded = cartDAO.addProductToCart(Integer.parseInt(id), name, Integer.parseInt(quantity), Integer.parseInt(price), image, username);
 
         if (isAdded) {
