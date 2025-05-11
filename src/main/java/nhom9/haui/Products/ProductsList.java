@@ -37,7 +37,7 @@ public class ProductsList extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getSession().removeAttribute("productList");
+    	
         List<Product> productList = new ArrayList<>();
 
         try (Connection cnn = new ConnectJDBC().getConnection();

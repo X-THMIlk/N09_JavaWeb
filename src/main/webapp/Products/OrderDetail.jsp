@@ -36,7 +36,7 @@
 		<a href="Home.jsp"><img
 			src="${pageContext.request.contextPath}/image/logo.jpg" alt="Logo"></a>
 		<ul class="menu">
-			<li><a href="Home.jsp">Trang chủ</a></li>
+			<li><a href="${pageContext.request.contextPath}/ProductList">Trang chủ</a></li>
 			<%
 			Admin admin = (Admin) session.getAttribute("admin");
 			if (admin != null) {

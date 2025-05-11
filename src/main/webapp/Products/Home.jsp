@@ -14,7 +14,7 @@
 		<a href="Home.jsp"><img
 			src="${pageContext.request.contextPath}/image/logo.jpg" alt="Logo"></a>
 		<ul class="menu">
-			<li><a href="Home.jsp">Trang chủ</a></li>
+			<li><a href="${pageContext.request.contextPath}/ProductList">Trang chủ</a></li>
 			<%
 			nhom9.haui.Model.Admin admin = (nhom9.haui.Model.Admin) session.getAttribute("admin");
 			if (admin != null) {
