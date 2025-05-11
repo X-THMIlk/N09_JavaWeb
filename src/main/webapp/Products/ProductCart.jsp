@@ -187,6 +187,11 @@ function showOrderForm() {
 			<li><a href="${pageContext.request.contextPath}/ProductCartList"><img
 					src="${pageContext.request.contextPath}/image/iconCart.jpg"></a></li>
 			<li class="bnt_logout"><a href="../index.jsp">Log Out</a></li>
+			<li class="user">
+			    <a href="${pageContext.request.contextPath}/Products/PersonalProfile.jsp">
+			        <img alt="" src="${pageContext.request.contextPath}/image/user.jpg">
+			    </a>
+			</li>
 		</ul>
 	</nav>
 

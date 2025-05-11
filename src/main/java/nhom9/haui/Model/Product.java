@@ -18,6 +18,10 @@ public class Product {
 	public Promotions getPromotion() {
 		return promotion;
 	}
+	
+	public Product() {
+	    // constructor rỗng
+	}
 
 	public void setPromotion(Promotions promotion) {
 		this.promotion = promotion;

@@ -77,12 +77,16 @@ body {
 }
 
 .bnt_logout a {
-    margin-right: 120px;
+    margin-right: 20px; /* Giảm khoảng cách với phần tử kế tiếp */
     width: 50px;
     border-color: black;
     font-size: 20px;
     text-decoration: underline;
     white-space: nowrap; /* Giữ cho phần logout không bị xuống dòng */
+}
+
+.user{
+	margin-right: 30px;
 }
 
 .navbar a {
@@ -165,6 +169,7 @@ body {
     border-radius: 5px;
     z-index: 10;
 }
+
 .item a {
     display: block; 
     margin-top: 10px;  
@@ -327,4 +332,3 @@ h1 {
     object-fit: contain;
     background-color: blanchedalmond;
 }
-	
