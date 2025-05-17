@@ -22,8 +22,8 @@
 			%>
 						<li class="dropdown"><a href="#">Sản phẩm</a>
 				<ul class="dropdown-content">
-					<li><a href="ProductList.jsp">Danh sách sản phẩm</a></li>
-					<li><a href="CategoryList.jsp">Danh mục sản phẩm</a></li>
+					  <li><a href="${pageContext.request.contextPath}/Products/ProductCatage">Danh sách sản phẩm</a></li>
+					<li><a href="${pageContext.request.contextPath}/Products/PromotionProductList">Danh sách khuyến mãi</a></li>
 				</ul></li>
 			<%
 			}
@@ -36,8 +36,8 @@
 					<input type="text" name="product" placeholder="Search Products..." />
 					<button type="submit">Search</button>
 				</form>
-			</li>
-			<li><a href="Cart"><img alt=""
+			</li>	
+			<li><a href="${pageContext.request.contextPath}/ProductCartList"><img alt=""
 					src="${pageContext.request.contextPath}/image/iconCart.jpg"></a>
 			<li class="bnt_logout"><a href="../ProductLogOut">Log Out</a></li>
 			<li class="user">
@@ -50,15 +50,9 @@
 	<div class="content">
 		<%
 		List<Product> productList = (List<Product>) session.getAttribute("productList");
-		String categoryParam = request.getParameter("category");
-		int selectedCategory = (categoryParam != null) ? Integer.parseInt(categoryParam) : 1;
-
-		String shoeCategoryParam = request.getParameter("shoeCategory");
-		int selectedShoeCategory = (shoeCategoryParam != null) ? Integer.parseInt(shoeCategoryParam) : 5;
 
 		if (productList != null) {
 			for (Product product : productList) {
-				if (product.getCategoryId() == selectedCategory) {
 		%>
 		<div class="item">
 			<div class="image-container">
@@ -83,7 +77,6 @@
 		</div>
 
 		<%
-		}
 		}
 		} else {
 		%>

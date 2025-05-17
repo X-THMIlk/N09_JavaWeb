@@ -232,4 +232,66 @@ public class ProductDAO implements IProductDAO{
                 return false;
             }
         }
+public List<Product> getPromotionProducts(int offset, int limit) {
+    List<Product> productList = new ArrayList<>();
+    String sql = "SELECT p.*, pr.* FROM Products p " +
+                 "INNER JOIN Promotions pr ON p.promotion_id = pr.id " +
+                 "LIMIT ? OFFSET ?";
+    
+    try (Connection conn = new ConnectJDBC().getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql)) {
+        
+        pst.setInt(1, limit);
+        pst.setInt(2, offset);
+        
+        try (ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                Product p = new Product(
+                    rs.getInt("id"),
+                    rs.getInt("category_id"),
+                    rs.getInt("promotion_id"),
+                    rs.getString("name"),
+                    rs.getString("code"),
+                    rs.getInt("price"),
+                    rs.getInt("quantity"),
+                    rs.getString("thumbnail"),
+                    rs.getString("description"),
+                    rs.getString("created_at")
+                );
+
+                Promotions promotion = new Promotions(
+                    rs.getInt("promotion_id"),
+                    rs.getString("pr.name"),
+                    rs.getString("pr.description"),
+                    rs.getDouble("pr.discount_percent"),
+                    rs.getDate("pr.start_date"),
+                    rs.getDate("pr.end_date")
+                );
+                p.setPromotion(promotion);
+
+                productList.add(p);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return productList;
+}
+
+// Đếm tổng số sản phẩm có khuyến mãi
+public int countPromotionProducts() {
+    int count = 0;
+    String sql = "SELECT COUNT(*) FROM Products WHERE promotion_id IS NOT NULL";
+    try (Connection conn = new ConnectJDBC().getConnection();
+         PreparedStatement pst = conn.prepareStatement(sql);
+         ResultSet rs = pst.executeQuery()) {
+        
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
 }

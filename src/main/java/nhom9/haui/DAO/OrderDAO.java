@@ -38,7 +38,7 @@ public class OrderDAO implements IOrderDAO{
                             pst.setString(4, address);
                             pst.setString(5, formattedOrderTime);
                             pst.setDouble(6, totalAmount);
-                            pst.setDouble(7, 0); // chưa thanh toán
+                            pst.setDouble(7, 0); 
                             pst.executeUpdate();
 
                             try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
@@ -60,7 +60,7 @@ public class OrderDAO implements IOrderDAO{
                         // 3. Xóa khỏi giỏ hàng
                         String deleteCart = "DELETE FROM Cart WHERE id = ?";
                         try (PreparedStatement pstDelete = conn.prepareStatement(deleteCart)) {
-                            pstDelete.setInt(1, cartId);
+pstDelete.setInt(1, cartId);
                             pstDelete.executeUpdate();
                         }
 
@@ -78,7 +78,7 @@ public class OrderDAO implements IOrderDAO{
     
     public List<Order> getAllOrders() {
         List<Order> orderList = new ArrayList<>();
-        String query = "SELECT o.id, o.customer_name, o.email, o.phone, o.address, o.order_date, o.total, o.paid_amount, p.name, p.price, pr.discount_percent " +
+        String query = "SELECT o.id, o.customer_name, o.email, o.phone, o.address, o.order_date, o.status, o.total, o.paid_amount, p.name, p.price, pr.discount_percent " +
                        "FROM Orders o " +
                        "JOIN OrderDetails od ON o.id = od.order_id " +
                        "JOIN Products p ON od.product_id = p.id " +
@@ -96,6 +96,7 @@ public class OrderDAO implements IOrderDAO{
                 String address = rs.getString("address");
                 Date orderDate = rs.getDate("order_date");
                 int total = rs.getInt("total");
+                String status = rs.getString("status");
                 int paidAmount = rs.getInt("paid_amount");
                 String productName = rs.getString("name");
                 int discount = rs.getInt("discount_percent");
@@ -108,7 +109,7 @@ public class OrderDAO implements IOrderDAO{
                 }
 
                 // Tạo đối tượng Order và thêm vào danh sách
-                Order order = new Order(id, customerName, email, phone, address, orderDate, total, paidAmount, productName, quantity);
+                Order order = new Order(id, customerName, email, phone, address, orderDate, total,status, paidAmount, productName, quantity);
                 orderList.add(order);
             }
 
@@ -117,5 +118,17 @@ public class OrderDAO implements IOrderDAO{
         }
 
         return orderList;
+    }
+    @Override
+    public void updateStatus(int orderId, String newStatus) {
+        String sql = "UPDATE Orders SET status = ? WHERE id = ?";
+        try (Connection conn = new ConnectJDBC().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, newStatus);
+            ps.setInt(2, orderId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

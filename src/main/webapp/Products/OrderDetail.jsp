@@ -44,7 +44,7 @@
 			<li class="dropdown"><a href="#">Sản phẩm</a>
 				<ul class="dropdown-content">
 					<li><a href="${pageContext.request.contextPath}/Products/ProductCatage">Danh sách sản phẩm</a></li>
-					<li><a href="CategoryList.jsp">Danh mục sản phẩm</a></li>
+					<li><a href="${pageContext.request.contextPath}/Products/PromotionProductList">Danh sách khuyến mãi</a></li>
 				</ul></li>
 			<%
 			}
@@ -80,6 +80,7 @@
             <th>Địa chỉ</th>
             <th>Ngày đặt</th>
             <th>Tổng tiền</th>
+            <th>Trạng Thái </th>
             <th>Đã thanh toán</th>
             <th>Hành động</th>
         </tr>
@@ -89,6 +90,7 @@
         List<Order> orderList = (List<Order>) session.getAttribute("orderList");
         	if(admin!= null){
             if (orderList != null) {
+            	System.out.print(orderList.size());
                 for (Order order : orderList) {
         %>
 				<tr>
@@ -99,6 +101,17 @@
 				    <td><%= order.getPhone() %></td>
 				    <td><%= order.getAddress() %></td>
 				    <td><%= order.getOrderDate() %></td>
+				    <td>
+					    <form action="${pageContext.request.contextPath}/Products/UpdateOrderStatus" method="post">
+					        <input type="hidden" name="orderId" value="<%= order.getId() %>">
+					        <select name="status" onchange="this.form.submit()">
+					            <option value="Chờ xác nhận" <%= "Chờ xác nhận".equals(order.getStatus()) ? "selected" : "" %>>Chờ xác nhận</option>
+					            <option value="Đang giao" <%= "Đang giao".equals(order.getStatus()) ? "selected" : "" %>>Đang giao</option>
+					            <option value="Hoàn thành" <%= "Hoàn thành".equals(order.getStatus()) ? "selected" : "" %>>Hoàn thành</option>
+					            <option value="Đã hủy" <%= "Đã hủy".equals(order.getStatus()) ? "selected" : "" %>>Đã hủy</option>
+					        </select>
+					    </form>
+					</td>
 				    <td><%= order.getTotal() %></td>
 				    <td><%= order.getPaidAmount() %></td>
 				    <td>
@@ -112,7 +125,7 @@
                 	}
             	}
         	}
-        	else{
+        	else if (user != null) {
         		for(Order order: orderList){
         			if(user.getUsername().equals(order.getCustomerName())){
         %>
@@ -124,6 +137,7 @@
 				    <td><%= order.getPhone() %></td>
 				    <td><%= order.getAddress() %></td>
 				    <td><%= order.getOrderDate() %></td>
+				    <td style="color: orange;"><%= order.getStatus() %></td>
 				    <td><%= order.getTotal() %></td>
 				    <td><%= order.getPaidAmount() %></td>
 				    <td>

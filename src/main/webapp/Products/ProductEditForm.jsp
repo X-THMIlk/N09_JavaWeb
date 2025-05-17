@@ -16,19 +16,19 @@
             border-radius: 8px;
             background-color: #f9f9f9;
         }
-        label {
+        .form-container label {
             display: inline-block;
             width: 150px;
             margin-bottom: 10px;
         }
-        input[type="text"], input[type="number"], textarea {
+        .form-container input[type="text"], input[type="number"], textarea {
             width: 70%;
             padding: 8px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        input[type="submit"] {
+        .form-container input[type="submit"] {
             padding: 10px 20px;
             background-color: #007bff;
             color: white;
@@ -37,7 +37,7 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        input[type="submit"]:hover {
+        .form-container input[type="submit"]:hover {
             background-color: #0056b3;
         }
     </style>

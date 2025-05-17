@@ -30,4 +30,5 @@ public interface IOrderDAO {
      * @return danh sách Order
      */
     List<Order> getAllOrders();
+    void updateStatus(int orderId, String newStatus);
 }

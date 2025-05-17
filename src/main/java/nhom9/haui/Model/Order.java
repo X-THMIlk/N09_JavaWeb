@@ -13,9 +13,10 @@ public class Order {
     private int paidAmount;
     private String name;
     private int quantity;
+    private String status;
 
     // Constructor
-    public Order(int id, String customerName, String email, String phone, String address, Date orderDate, int total, int paidAmount, String name, int quantity) {
+    public Order(int id, String customerName, String email, String phone, String address, Date orderDate, int total, String status,  int paidAmount, String name, int quantity) {
         this.id = id;
         this.customerName = customerName;
         this.email = email;
@@ -23,6 +24,7 @@ public class Order {
         this.address = address;
         this.orderDate = orderDate;
         this.total = total;
+        this.status = status;
         this.paidAmount = paidAmount;
         this.name = name;
         this.quantity = quantity;
@@ -107,6 +109,15 @@ public class Order {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

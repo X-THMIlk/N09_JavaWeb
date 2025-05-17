@@ -4,12 +4,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Đăng ký</title>
-<link rel="stylesheet" href="register.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Products/Register.css">
 </head>
 <body>
     <div class="register-container">
         <h2>TÀI KHOẢN <span onclick="window.location.href='http://localhost:8080/Nhom9_JavaWeb/index.jsp'">X</span></h2>
         <h1>ĐĂNG KÝ</h1>
+		<% String errorMessage = (String) request.getAttribute("errorMessage");
+		   if (errorMessage != null) { %>
+		    <script>
+		        alert("<%= errorMessage.replace("\"", "\\\"") %>");
+		    </script>
+		<% } %>
 
         <form action="${pageContext.request.contextPath}/Controller/RegisterServlet" method="post" onsubmit="return validateForm()">
             <label>@Username</label>
@@ -47,7 +53,7 @@
             document.getElementById("resend-otp").disabled = true;
             timer = setInterval(() => {
                 timeLeft--;
-                document.getElementById("timer").innerText = `Gửi lại sau: ${timeLeft}s`;
+                document.getElementById("timer").innerText = "Gửi lại sau: " + timeLeft + "s";
                 if (timeLeft <= 0) {
                     clearInterval(timer);
                     document.getElementById("send-otp").disabled = false;

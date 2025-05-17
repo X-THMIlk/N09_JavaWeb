@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectJDBC {
     private String dbname = "SportShopDB";
     private String username = "root";
-    private String password = "123abc";
+    private String password = "123456";
     private String connURL = "jdbc:mysql://localhost:3306/" + dbname + "?useSSL=false&serverTimezone=UTC";
 
     public Connection getConnection() {

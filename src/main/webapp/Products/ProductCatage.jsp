@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Trang chủ</title>
+<title>Danh sách sản phẩm</title>
 <link rel="stylesheet" href="Home.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
             <li class="dropdown"><a href="#">Sản phẩm</a>
                 <ul class="dropdown-content">
                     <li><a href="${pageContext.request.contextPath}/Products/ProductCatage">Danh sách sản phẩm</a></li>
-                    <li><a href="CategoryList.jsp">Danh mục sản phẩm</a></li>
+                    <li><a href="${pageContext.request.contextPath}/Products/PromotionProductList">Danh sách khuyến mãi</a></li>
                 </ul></li>
             <% } %>
             <li><a href="${pageContext.request.contextPath}/Products/OrderList">Đơn hàng</a></li>

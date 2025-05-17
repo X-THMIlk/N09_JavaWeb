@@ -77,9 +77,9 @@ function showOrderForm() {
         const address = document.getElementById("address").value.trim();
 
         // Kiểm tra số điện thoại
-        const phoneRegex = /^[0-9]{9}$/;
+        const phoneRegex = /^[0-9]{10}$/;
         if (!phoneRegex.test(phone)) {
-            alert("Số điện thoại phải gồm đúng 9 chữ số.");
+            alert("Số điện thoại phải gồm 9 hoặc 10 chữ số.");
             return false;
         }
 
@@ -170,7 +170,7 @@ function showOrderForm() {
 			<li class="dropdown"><a href="#">Sản phẩm</a>
 				<ul class="dropdown-content">
 					<li><a href="${pageContext.request.contextPath}/Products/ProductCatage">Danh sách sản phẩm</a></li>
-					<li><a href="CategoryList.jsp">Danh mục sản phẩm</a></li>
+					<li><a href="${pageContext.request.contextPath}/Products/PromotionProductList">Danh sách khuyến mãi</a></li>
 				</ul></li>
 			<%
 			}

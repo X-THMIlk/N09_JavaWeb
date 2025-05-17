@@ -63,8 +63,7 @@ CREATE TABLE Cart (
     price INT,
     image VARCHAR(255),
     username VARCHAR(50),
-    FOREIGN KEY (product_id) REFERENCES Products(id),
-    FOREIGN KEY (username) REFERENCES Users(username)
+    FOREIGN KEY (product_id) REFERENCES Products(id)
 );
 
 -- Orders table
@@ -76,7 +75,8 @@ CREATE TABLE Orders (
     address VARCHAR(255),
     order_date DATETIME,
     total INT,
-    paid_amount INT
+    paid_amount INT,
+    status ENUM('Chờ xác nhận', 'Đang giao', 'Hoàn thành', 'Đã hủy') DEFAULT 'Chờ xác nhận'
 );
 -- Order Details
 CREATE TABLE OrderDetails (
@@ -96,15 +96,27 @@ CREATE TABLE Comments (
     comment_date DATE,
     product_id INT,
     user_id INT,
+    admin_id INT,
     FOREIGN KEY (product_id) REFERENCES Products(id),
-    FOREIGN KEY (user_id) REFERENCES Users(id)
-);
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (admin_id) REFERENCES Admins(id)
+);	
 
 -- Insert sample users
 INSERT INTO Users (username, email, password, phone, address) VALUES
-('quangvu0407', 'trantuyenquang0407@gmail.com', '123abc', null, null),
-('jane_smith', 'jane@gmail.com', 'password456', '213424312', 'Ha Noi'),
-('john_doe', 'johndoe@example.com', 'password123', '213424312', 'Ha Noi');
+('tranquang', 'trantuyenquang0407@gmail.com', 'pass123', '0987654321', '123 Nguyen Trai, Ha Noi'),
+('janesmith', 'jane@gmail.com', 'password', '0123456789', '456 Le Loi, Ho Chi Minh'),
+('johndoe', 'johndoe@example.com', '123456', '0981122334', '789 Tran Hung Dao, Da Nang'),
+('nguyenvana', 'nguyenvana@gmail.com', 'abc123', '0912345678', '10 Le Thanh Tong, Ha Noi'),
+('phamthib', 'phamthib@gmail.com', 'qwerty', '0933222111', '20 Tran Phu, Hai Phong'),
+('levanc', 'levanc@gmail.com', 'letmein', '0977555888', '15 Phan Chu Trinh, Hue'),
+('hoangthid', 'hoangthid@gmail.com', 'passw0rd', '0900111222', '8 Bach Dang, Da Nang'),
+('tranvane', 'tranvane@gmail.com', '123abc', '0988777666', '100 Nguyen Van Cu, Can Tho'),
+('nguyenvanb', 'nguyenvanb@gmail.com', 'hello123', '0966554433', '50 Le Lai, Da Nang'),
+('lethic', 'lethic@gmail.com', 'letme1n', '0911777666', '25 Hai Ba Trung, Ha Noi'),
+('phamh', 'phamh@gmail.com', 'phamh2025', '0933445566', '88 Tran Quang Khai, Hue'),
+('dangtn', 'dangtn@gmail.com', 'dangtn456', '0922334455', '12 Le Duan, Ho Chi Minh');
+
 
 -- Insert sample admins
 INSERT INTO Admins (username, email, password, phone, address, level) VALUES
@@ -191,26 +203,29 @@ INSERT INTO Products (category_id, promotion_id, name, code, price,quantity,  th
 
 -- Insert cart items
 INSERT INTO Cart (product_id, product_name, quantity, price, image, username) VALUES
-(1, 'Football', 2, 20, 'football1.jpg', 'quangvu0407');
+(1, 'Football', 2, 20, 'football1.jpg', 'tranquang');
 
 -- Insert orders
-INSERT INTO Orders (customer_name, email, phone, address, order_date, total, paid_amount) VALUES
-('john_doe', 'johndoe@example.com', '213424312', 'Ha Noi', '2025-04-25 14:30:00', 60, 50);
+INSERT INTO Orders (customer_name, email, phone, address, order_date, total, paid_amount, status) VALUES
+('Nguyen Van A', 'vana@gmail.com', '0912345678', '123 Le Loi, Ha Noi', '2025-05-10 10:00:00', 700000, 0, 'Chờ xác nhận'),
+('Tran Thi B', 'thib@gmail.com', '0987654321', '456 Tran Hung Dao, Ha Noi', '2025-05-11 15:30:00', 1150000, 0, 'Chờ xác nhận'),
+('Le Van C', 'levanc@gmail.com', '0909123456', '789 Kim Ma, Ha Noi', '2025-05-12 09:20:00', 200000, 0, 'Chờ xác nhận'),
+('Pham Thi D', 'phamd@gmail.com', '0977123456', '321 Xuan Thuy, Ha Noi', '2025-05-13 18:45:00', 350000, 0, 'Chờ xác nhận');
 
 -- Insert order details
 INSERT INTO OrderDetails (order_id, product_id, price) VALUES
 (1, 1, 20);
 
 -- Insert comments
-INSERT INTO Comments (email, content, comment_date, product_id, user_id) VALUES
-('trantuyenquang0407@gmail.com', 'Great product, I will buy more!', '2025-04-25', 1, 1),
-('jane@example.com', 'Very comfortable and durable shoes.', '2025-04-26', 4, 2);
+INSERT INTO Comments (email, content, comment_date, product_id, user_id, admin_id) VALUES
+('trantuyenquang0407@gmail.com', 'Great product, I will buy more!', '2025-04-25', 1, 1, null),
+('jane@example.com', 'Very comfortable and durable shoes.', '2025-04-26', 4, 2, null);
 
 ALTER TABLE Products MODIFY name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 -- Sample select queries
 SELECT * FROM Users;
 SELECT * FROM Admins;
-SELECT * FROM Categories;
+SELECT * FROM Categories;		
 SELECT * FROM Promotions;
 SELECT * FROM Products;
 SELECT * FROM Cart;	
@@ -238,3 +253,5 @@ DROP TABLE IF EXISTS Users;
 
 SHOW FULL COLUMNS FROM Products;
 	
+ALTER TABLE Products
+MODIFY COLUMN promotion_id INT NULL;

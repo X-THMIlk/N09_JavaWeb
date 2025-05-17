@@ -20,7 +20,7 @@ body {
 form {
     height: 590px;
     width: 450px;
-    background-color: rgba(255, 255, 255, 0.13);
+    background-color: rgb(128, 128, 255);
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
@@ -103,7 +103,7 @@ input:focus {
 
 .register-link:hover {
     text-decoration: underline;
-    color: #0091c2;
+    color: rgb(255, 0, 0);
 }
 
 button {

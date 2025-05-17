@@ -11,7 +11,7 @@
 
     .register-container {
         width: 340px;
-        padding: 25px;
+        padding: 25px 25px;
         border-radius: 10px;
         background-color: #ffffff;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -39,9 +39,15 @@
     }
 
     .register-container h1 {
-        margin: 0 0 20px 0;
+        display: flex;
+        text-align: center;
+        justify-content: center;
         font-size: 26px;
         color: #2c3e50;
+    }
+    
+    .register-container form{
+    	margin-right: 25px;
     }
 
     .register-container label {
@@ -85,12 +91,12 @@
     .otp-button {
     	height: 39px;
         flex: 1;
-        padding: 10px;
+        margin-left: 10px;
+        padding: 10px 10px;
         background-color: #1565c0;
         color: #fff;
         border: 1px solid #1565c0;
-        border-left: none;
-        border-radius: 0 6px 6px 0;
+        border-radius: 10px;
         cursor: pointer;
         font-size: 14px;
         transition: background-color 0.3s ease, box-shadow 0.2s ease;
