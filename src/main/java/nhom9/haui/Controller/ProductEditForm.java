@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/nhom9/haui/Controller/ProductEditForm.java
 package nhom9.haui.Controller;
+=======
+package nhom9.haui.Products;
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845:src/main/java/nhom9/haui/Products/ProductEditForm.java
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +14,11 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+<<<<<<< HEAD:src/main/java/nhom9/haui/Controller/ProductEditForm.java
 import nhom9.haui.DAO.ConnectJDBC;
+=======
+import nhom9.haui.jdbc.ConnectJDBC;
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845:src/main/java/nhom9/haui/Products/ProductEditForm.java
 import nhom9.haui.Model.Product;
 
 @WebServlet("/Products/ProductEditForm")
@@ -35,7 +43,10 @@ public class ProductEditForm extends HttpServlet {
                 Product product = new Product(id, id, id, sql, sql, id, id, sql, sql, sql);
                 product.setId(rs.getInt("id"));
                 product.setCategoryId(rs.getInt("category_id"));
+<<<<<<< HEAD:src/main/java/nhom9/haui/Controller/ProductEditForm.java
                 product.setPromotionId(rs.getInt("promotion_id"));
+=======
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845:src/main/java/nhom9/haui/Products/ProductEditForm.java
                 product.setName(rs.getString("name"));
                 product.setCode(rs.getString("code"));
                 product.setPrice(rs.getInt("price"));

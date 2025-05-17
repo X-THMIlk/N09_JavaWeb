@@ -16,19 +16,31 @@
             border-radius: 8px;
             background-color: #f9f9f9;
         }
+<<<<<<< HEAD
         .form-container label {
+=======
+        label {
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
             display: inline-block;
             width: 150px;
             margin-bottom: 10px;
         }
+<<<<<<< HEAD
         .form-container input[type="text"], input[type="number"], textarea {
+=======
+        input[type="text"], input[type="number"], textarea {
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
             width: 70%;
             padding: 8px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+<<<<<<< HEAD
         .form-container input[type="submit"] {
+=======
+        input[type="submit"] {
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
             padding: 10px 20px;
             background-color: #007bff;
             color: white;
@@ -37,7 +49,11 @@
             border-radius: 4px;
             cursor: pointer;
         }
+<<<<<<< HEAD
         .form-container input[type="submit"]:hover {
+=======
+        input[type="submit"]:hover {
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
             background-color: #0056b3;
         }
     </style>
@@ -81,9 +97,12 @@
 
         <label for="category_id">Mã danh mục:</label>
         <input type="number" name="category_id" id="category_id" value="<%= product.getCategoryId() %>" required><br>
+<<<<<<< HEAD
         
         <label for="category_id">Mã Khuyến mãi:</label>
         <input type="number" name="idPromotion" id="idPromotion" value="<%= product.getPromotionId() %>" required><br>
+=======
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
 
         <div style="text-align: center;">
             <input type="submit" value="Cập nhật sản phẩm">

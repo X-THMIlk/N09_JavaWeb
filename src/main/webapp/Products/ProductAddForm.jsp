@@ -58,6 +58,7 @@
 <div class="form-container">
     <h2>Thêm sản phẩm mới</h2>
     <form action="${pageContext.request.contextPath}/Products/ProductAdd" method="post">
+<<<<<<< HEAD
     
 		<%
 		    Integer minPromotionId = (Integer) session.getAttribute("minPromotionId");
@@ -74,6 +75,8 @@
 		</label>
 		<input type="number" name="idPromotion" id="idPromotion" required><br>
 		    	
+=======
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
         <label for="name">Tên sản phẩm:</label>
         <input type="text" name="name" id="name" required><br>
 
@@ -92,6 +95,7 @@
         <label for="thumbnail">Tên file ảnh (VD: ao1.jpg):</label>
         <input type="text" name="thumbnail" id="thumbnail" required><br>
 
+<<<<<<< HEAD
         <%
     Integer minCategoryId = (Integer) session.getAttribute("minCategoryId");
     Integer maxCategoryId = (Integer) session.getAttribute("maxCategoryId");
@@ -105,12 +109,19 @@
         (Không xác định được giới hạn)
     <% } %>
 </label>
+=======
+        <label for="category_id">Mã danh mục:(Từ1->8)</label>
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
         <input type="number" name="category_id" id="category_id" required><br>
 
         <div style="text-align: center;">
             <input type="submit" value="Thêm sản phẩm">
         </div>
+<<<<<<< HEAD
         </form>
+=======
+    </form>
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
 </div>
 
 </body>

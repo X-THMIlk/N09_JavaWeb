@@ -41,6 +41,7 @@
         </ul>
     </nav>
 
+<<<<<<< HEAD
 	<div style="position: relative; margin-top: 20px;">
 	    <h1 style="text-align: center; margin: 0;">Danh sách sản phẩm</h1>
 	    <a href="${pageContext.request.contextPath}/Products/MinMax"
@@ -50,6 +51,9 @@
 	        + Thêm sản phẩm
 	    </a>
 	</div>
+=======
+    <h1>Danh sách sản phẩm</h1>
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
 
     <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; margin-top: 10px;">
         <tr>
@@ -89,6 +93,10 @@
                 <%= (product.getPromotion() != null) ? ("-" + product.getPromotion().getDiscountPercent() + "%") : "Không có" %>
             </td>
             <td>
+<<<<<<< HEAD
+=======
+                <a href="${pageContext.request.contextPath}/Products/ProductAddForm.jsp" onclick="return confirm('Bạn muốn thêm sản phẩm mới?');">Thêm</a>
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845
                 <a href="${pageContext.request.contextPath}/Products/ProductEditForm?id=<%= product.getId() %>" onclick="return confirm('Bạn sửa sản phẩm này?');">Sửa</a>
                 <a href="${pageContext.request.contextPath}/Products/ProductsDelete?id=<%= product.getId() %>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">Xóa</a>
             </td>

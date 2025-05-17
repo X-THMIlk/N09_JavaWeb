@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/nhom9/haui/Controller/ProductEdit.java
 package nhom9.haui.Controller;
+=======
+package nhom9.haui.Products;
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845:src/main/java/nhom9/haui/Products/ProductEdit.java
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,7 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+<<<<<<< HEAD:src/main/java/nhom9/haui/Controller/ProductEdit.java
 import nhom9.haui.DAO.ConnectJDBC;
+=======
+import nhom9.haui.jdbc.ConnectJDBC;
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845:src/main/java/nhom9/haui/Products/ProductEdit.java
 
 @WebServlet("/Products/ProductEdit")
 public class ProductEdit extends HttpServlet {
@@ -32,6 +40,7 @@ public class ProductEdit extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             String thumbnail = request.getParameter("thumbnail");
             int categoryId = Integer.parseInt(request.getParameter("category_id"));
+<<<<<<< HEAD:src/main/java/nhom9/haui/Controller/ProductEdit.java
             int idPromotion = Integer.parseInt(request.getParameter("idPromotion"));
 
             // Kết nối và cập nhật CSDL
@@ -47,6 +56,22 @@ public class ProductEdit extends HttpServlet {
                 pst.setString(7, thumbnail);
                 pst.setString(8, description);
                 pst.setInt(9, id);
+=======
+
+            // Kết nối và cập nhật CSDL
+            try (Connection conn = new ConnectJDBC().getConnection()) {
+                String sql = "UPDATE Products SET category_id = ?, name = ?, code = ?, price = ?, quantity = ?, thumbnail = ?, description = ? WHERE id = ?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                pst.setInt(1, categoryId);
+                pst.setString(2, name);
+                pst.setString(3, code);
+                pst.setInt(4, price);
+                pst.setInt(5, quantity);
+                pst.setString(6, thumbnail);
+                pst.setString(7, description);
+                pst.setInt(8, id);
+>>>>>>> c941d708bd6fe42efee07efc3f97872f8574e845:src/main/java/nhom9/haui/Products/ProductEdit.java
 
                 int rows = pst.executeUpdate();
 

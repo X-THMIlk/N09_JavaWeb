@@ -102,7 +102,13 @@
 <body>
     <nav class="navbar">
         <a href="index.html"><img src="./image/logo.jpg" alt=""></a>
+        <ul class="menu">
+          <li><a href="${pageContext.request.contextPath}/ProductList">Trang chủ</a></li>
+          <li><a href="#">Sản phẩm</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
     </nav>
+
     <div class="button-container">
         <button class="button" onclick="confirmAndRedirect()">Đăng ký</button>
         <!-- Dùng JavaScript để chuyển trang -->
